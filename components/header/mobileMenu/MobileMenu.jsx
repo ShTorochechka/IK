@@ -2,30 +2,21 @@
 import React, { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from '../header.module.css';
-import AuthModal from '../../authorizationModal/AuthModal';
-import Cookies from 'js-cookie';
 import Link from 'next/link';
 import Balance from '../balance/Balance';
-import { useFinance } from '../../../context/FinanceContext';
 import Loader from '../../loader/Loader';
 
-function MobileMenu() {
+function MobileMenu({
+    isLoggedIn,
+    isAuthOpen,
+    setIsAuthOpen,
+    handleLogout,
+    balance,
+    isLoading,
+}) {
     const pathname = usePathname();
-    const router = useRouter();
     const [open, setOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isAuthOpen, setIsAuthOpen] = useState(false);
-
-    const { balance, isLoading } = useFinance();
-
     const isAccountPage = pathname === '/account';
-
-    useEffect(() => {
-        const token = Cookies.get('token');
-        if (token) {
-            setIsLoggedIn(true);
-        }
-    }, []);
 
     useEffect(() => {
         if (open || isAuthOpen) {
@@ -45,16 +36,10 @@ function MobileMenu() {
         setOpen(!open);
     };
 
-    const handleLogout = () => {
-        Cookies.remove('token');
-        setIsLoggedIn(false);
-        router.push('/');
-    };
-
     const menuItemsData = [
         { title: 'Главная', url: '/' },
         { title: 'Аналитика', url: '/analytics' },
-        { title: 'Контакты', url: '/' },
+        { title: 'Контакты', url: '/news' },
     ];
 
     return (
@@ -65,10 +50,7 @@ function MobileMenu() {
                 <div className={`${styles.logoNav}`}>
                     <div className={`${styles.logoNavWrapper} container`}>
                         <h1 className={styles.headerLogo}>IK</h1>
-                        <div
-                            className={`${styles.burgerBtn} ${open ? styles.open : ''}`}
-                            onClick={toggleMenu}
-                        >
+                        <div className={`${styles.burgerBtn} ${open ? styles.open : ''}`} onClick={toggleMenu}>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -81,7 +63,11 @@ function MobileMenu() {
                         <ul className={styles.navList}>
                             {menuItemsData.map((menu, index) => (
                                 <li key={index}>
-                                    <a href={menu.url}>{menu.title}</a>
+                                    <Link href={menu.url} legacyBehavior>
+                                        <a className={pathname === menu.url ? styles.activeLink : ''}>
+                                            {menu.title}
+                                        </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -91,7 +77,7 @@ function MobileMenu() {
                         {isLoggedIn ? (
                             <>
                                 {isLoading ? (
-                                    <Loader/>
+                                    <Loader />
                                 ) : (
                                     <Balance balance={balance} />
                                 )}
@@ -109,15 +95,6 @@ function MobileMenu() {
                     </div>
                 </div>
             </header>
-
-            <AuthModal
-                isOpen={isAuthOpen}
-                onClose={() => setIsAuthOpen(false)}
-                onAuthSuccess={() => {
-                    setIsLoggedIn(true);
-                    setIsAuthOpen(false);
-                }}
-            />
         </>
     );
 }

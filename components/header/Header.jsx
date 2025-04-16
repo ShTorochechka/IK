@@ -22,7 +22,7 @@ function Header() {
     const menuItemsData = [
         { title: 'Главная', url: '/' },
         { title: 'Аналитика', url: '/analytics' },
-        { title: 'Контакты', url: '/' },
+        { title: 'Контакты', url: '/news' },
     ];
 
     useEffect(() => {
@@ -80,7 +80,7 @@ function Header() {
                     {isLoggedIn ? (
                         <>
                             {isLoading ? (
-                                <Loader size={26}/>
+                                <Loader size={26} />
                             ) : (
                                 <Balance balance={balance} />
                             )}
@@ -99,7 +99,14 @@ function Header() {
                 </div>
             </header>
 
-            <MobileMenu />
+            <MobileMenu
+                isLoggedIn={isLoggedIn}
+                isAuthOpen={isAuthOpen}
+                setIsAuthOpen={setIsAuthOpen}
+                handleLogout={handleLogout}
+                balance={balance}
+                isLoading={isLoading}
+            />
 
             <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} onAuthSuccess={handleAuthSuccess} />
         </>
