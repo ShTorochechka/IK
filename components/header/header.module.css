@@ -1,0 +1,181 @@
+.headerWrapper {
+    margin-top: 2em;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+}
+.headerLogo {
+    color: #B908FF;
+    font-size: 4em;
+    font-weight: 700;
+}
+
+.loggedIn .navList {
+    padding-left: 10em;
+}
+
+.navList {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    gap: 2em;
+    font-size: 1em;
+}
+
+.navList li a.activeLink {
+    color: #B908FF;
+}
+
+.headerWrapperMobile {
+    display: none;
+}
+
+.accountBtnAndBalance{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.burgerBtn {
+    color: white;
+    display: none;
+    cursor: pointer;
+    width: 28px;
+    height: 25px;
+    border: none;
+    background: none;
+    position: relative;
+    z-index: 2;
+}
+
+.burgerBtn span {
+    position: absolute;
+    width: 28px;
+    height: 4px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 1000px;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.headerWrapper .btnNav{
+    display: flex;
+    gap: .5em;
+}
+
+.burgerBtn span:nth-child(1) {
+    top: 0;
+}
+
+.burgerBtn span:nth-child(2) {
+    top: 10px;
+}
+
+.burgerBtn span:nth-child(3) {
+    top: 20px;
+}
+
+.burgerBtn.open span:nth-child(1) {
+    transform: rotate(45deg) translate(9px, 9px);
+}
+
+.burgerBtn.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.burgerBtn.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media (max-width: 1040px) {
+    .headerWrapper {
+        display: none;
+    }
+
+    .headerWrapperMobile {
+        display: block;
+        position: relative;
+        z-index: 800;
+    }
+
+    .headerWrapperMobile .btnNav{
+        display: flex;
+        gap: 1em;
+        flex-direction: column;
+    }
+
+    .burgerBtn {
+        display: block;
+    }
+
+    .logoNav {
+        padding: 10px 0;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        z-index: 4;
+        background-color: #171717;
+    }
+
+    .navEnterBtn {
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 250px;
+        background-color: #171717;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        z-index: 3;
+        gap: 20px;
+        transform: translateY(-500px);
+        transition: transform .6s ease-in-out;
+    }
+
+    .navEnterBtn.show {
+        transform: translateY(-2px);
+    }
+
+    .navEnterBtn .search {
+        max-width: 215px;
+        width: 100%;
+        padding: 20px 15px 20px 70px;
+    }
+
+    .navEnterBtn .navList {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .blurBackground {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        z-index: 700;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .blurBackground.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .logoNavWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .accountBtnAndBalance{
+        flex-direction: column;
+    }
+}

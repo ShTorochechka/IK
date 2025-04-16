@@ -1,0 +1,48 @@
+.mainPageWrapper {
+    margin: 6.5625rem 0;
+}
+
+.mainPageWrapper h1 {
+    font-size: 3rem;
+}
+
+.mainPageWrapper p {
+    font-size: 1.875em;
+}
+
+.firstBlock,
+.secondBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 1.875rem;
+}
+
+.imgBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+@media (max-width: 1200px) {
+    .mainPageWrapper p {
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+
+    .mainPageWrapper h1 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 805px) {
+    .mainPageWrapper p {
+        font-size: 1rem;
+    }
+
+    .mainPageWrapper h1 {
+        font-size: 1.3rem;
+    }
+
+}

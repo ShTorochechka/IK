@@ -1,0 +1,184 @@
+.analyticsPageWrapper {
+    margin: 6.5625rem 0;
+}
+
+.filterBtnWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    padding: 1em 0;
+}
+
+.filterContainer {
+    position: relative;
+}
+
+.filterBtn {
+    margin-top: .5em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    background-color: #222;
+    border-radius: 8px;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filterBtn:hover {
+    background-color: #333;
+}
+
+.arrow {
+    font-size: 0.7em;
+    color: #b9b9b9;
+    transition: transform 0.3s ease;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 0.5em);
+    left: 0;
+    width: max-content;
+    background-color: #222;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    z-index: 100;
+}
+
+.open {
+    max-height: 500px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dropdownItem {
+    padding: 0.75em 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dropdownItem:hover {
+    background-color: #333;
+}
+
+/* list */
+.listAnalytics {
+    margin-top: 5em;
+    height: 37.5em;
+    overflow-y: scroll;
+    padding: 0em 1em 1em 1em;
+}
+
+.cardTransactionWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2em;
+    max-width: 75em;
+    background-color: #1F1F1F;
+    padding: 2.5em 1.375em;
+    border-radius: 1.25em;
+    box-shadow: 0 0 20px #b5b5b57d;
+}
+
+.cardTransactionWrapper {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.logoCard {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    width: 10em;
+}
+
+.infoWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6875em;
+    width: 10em;
+}
+
+.titleCard,
+.textCard {
+    text-align: center;
+    font-size: .9rem;
+    max-width: 20em;
+    word-wrap: break-word;
+}
+
+.titleCard {
+    color: #BDBDBD;
+}
+
+.priceWrapper {
+    gap: .2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.income {
+    color: rgb(0, 255, 0);
+}
+
+.expense {
+    color: red;
+}
+
+.loaderWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.emptyList {
+    width: 100%;
+    margin-top: 5em;
+    text-align: center;
+}
+
+@media (max-width: 1040px) {
+    .cardTransactionWrapper {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .logoCard {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .infoWrapper {
+        width: 100%;
+    }
+}

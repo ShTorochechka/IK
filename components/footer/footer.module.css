@@ -1,0 +1,97 @@
+.footerWrapper {
+    color: white;
+    padding: 35px 0;
+}
+
+.logoInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo h1 {
+    color: #B908FF;
+    font-size: 4em;
+    font-weight: 700;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.line {
+    margin: 25px 0 57px;
+    background-color: #B908FF;
+    height: 1px;
+}
+
+.copSoc {
+    margin-top: 57px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.copSoc p {
+    color: #999999;
+    font-weight: 500;
+}
+
+.copSoc nav {
+    display: flex;
+    gap: 30px;
+}
+
+.socialMobile a {
+    display: none;
+}
+.socialMobile a img, .socialPC a img{ 
+    border-radius: 30%;
+}
+
+@media (max-width: 1024px) {
+    
+    .socialPC a {
+        display: none;
+    }
+
+    .socialMobile {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .socialMobile a {
+        display: flex;
+    }
+
+    .logoInfo {
+        flex-wrap: wrap;
+        display: flex;
+
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .copSoc {
+        justify-content: center;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 30px;
+        font-weight: 600;
+    }
+}
