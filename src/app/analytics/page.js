@@ -1,5 +1,5 @@
 import React from 'react'
-import AnalyticsPage from '../../../components/analyticsPage/AnalyticsPage'
+import AnalyticsPage from '@/components/analyticsPage/AnalyticsPage'
 
 function Analytics() {
   return (

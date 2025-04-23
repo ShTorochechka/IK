@@ -1,8 +1,8 @@
 
 
-import Footer from "../../components/footer/Footer";
-import Header from "../../components/header/Header";
-import { FinanceProvider } from "../../context/FinanceContext";
+import Footer from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
+import { FinanceProvider } from "@/context/FinanceContext";
 import "./globals.css";
 
 export const metadata = {

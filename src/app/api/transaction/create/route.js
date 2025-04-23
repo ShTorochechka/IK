@@ -23,7 +23,6 @@ export async function POST(req) {
       return NextResponse.json({ message: 'Некорректная сумма' }, { status: 400 });
     }
 
-    // Проверка на корректность даты
     const isValidDate = !isNaN(Date.parse(date));
     if (!isValidDate) {
       return NextResponse.json({ message: 'Неверный формат даты. Ожидается YYYY-MM-DD' }, { status: 400 });
@@ -33,7 +32,6 @@ export async function POST(req) {
     const formattedDateForDb = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     const formattedDateForApp = `${day.padStart(2, '0')}-${month.padStart(2, '0')}-${year}`;
 
-    // Используем категорию, переданную с клиента, или значение по умолчанию
     let transactionCategory = category || 'Деньги';
 
     const currentDate = new Date(formattedDateForDb);
@@ -41,19 +39,16 @@ export async function POST(req) {
       return NextResponse.json({ message: 'Некорректная дата' }, { status: 400 });
     }
 
-    // Проверка существования пользователя в базе данных
     const userExists = await db.query('SELECT id FROM users WHERE id = $1', [userId]);
     if (!userExists.rows.length) {
       return NextResponse.json({ message: 'Пользователь не найден' }, { status: 404 });
     }
 
-    // Создание транзакции
     await db.query(
       'INSERT INTO transactions (user_id, type, amount, date, comment, category) VALUES ($1, $2, $3, $4, $5, $6)',
       [userId, type, amount, formattedDateForDb, comment, transactionCategory]
     );
 
-    // Обновление баланса
     const balanceQuery = type === 'income' ? 
       'UPDATE users SET balance = balance + $1 WHERE id = $2' : 
       'UPDATE users SET balance = balance - $1 WHERE id = $2';

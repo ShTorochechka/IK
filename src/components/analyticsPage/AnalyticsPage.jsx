@@ -17,10 +17,9 @@ function AnalyticsPage() {
   const { transactions, isLoading, deleteTransaction } = useFinance()
 
   useEffect(() => {
-    if (transactions.length > 0) {
-      setFilteredTransactions(transactions)
-    }
+    setFilteredTransactions(transactions)
   }, [transactions])
+  
 
   const handleFilterChange = (filter) => {
     let sorted = [...transactions]

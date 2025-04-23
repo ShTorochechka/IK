@@ -4,7 +4,6 @@ import db from '@/db/client';
 
 export async function DELETE(request) {
   try {
-    // Получаем id из URL
     const url = new URL(request.url);
     const pathParts = url.pathname.split('/');
     const transactionId = pathParts[pathParts.length - 1];
@@ -28,7 +27,6 @@ export async function DELETE(request) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.userId || decoded.id;
 
-    // Проверяем, что транзакция принадлежит пользователю
     const checkResult = await db.query(
       'SELECT user_id, amount, type FROM transactions WHERE id = $1',
       [transactionId]
@@ -41,29 +39,24 @@ export async function DELETE(request) {
       );
     }
 
-    // Определяем сумму для корректировки баланса
     const transaction = checkResult.rows[0];
     const amountToUpdate = transaction.type === 'income' 
       ? -transaction.amount 
       : transaction.amount;
 
-    // Начинаем транзакцию
     await db.query('BEGIN');
 
     try {
-      // Обновляем баланс
       await db.query(
         'UPDATE users SET balance = balance + $1 WHERE id = $2',
         [amountToUpdate, userId]
       );
 
-      // Удаляем транзакцию
       await db.query(
         'DELETE FROM transactions WHERE id = $1',
         [transactionId]
       );
 
-      // Фиксируем транзакцию
       await db.query('COMMIT');
 
       return NextResponse.json({ 
@@ -72,7 +65,6 @@ export async function DELETE(request) {
       });
 
     } catch (error) {
-      // Откатываем транзакцию при ошибке
       await db.query('ROLLBACK');
       throw error;
     }

@@ -1,18 +1,16 @@
 import { NextResponse } from 'next/server';
-import db from '@/db/client'; // путь к твоей БД
+import db from '@/db/client';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 
 export async function POST(req) {
     const { email } = await req.json();
 
-    // Проверка на пустой email
     if (!email) {
         return NextResponse.json({ message: 'Пожалуйста, укажите email' }, { status: 400 });
     }
 
     try {
-        // Проверка, существует ли пользователь с таким email
         const userRes = await db.query('SELECT * FROM users WHERE email = $1', [email]);
 
         if (!userRes.rows.length) {
@@ -21,17 +19,14 @@ export async function POST(req) {
 
         const user = userRes.rows[0];
 
-        // Генерация уникального токена
         const token = crypto.randomBytes(20).toString('hex');
-        const expires = new Date(Date.now() + 3600000); // Токен истекает через 1 час
+        const expires = new Date(Date.now() + 3600000);
 
-        // Сохраняем токен и время его истечения в базе данных
         await db.query(
             'UPDATE users SET reset_token = $1, reset_token_expires = $2 WHERE email = $3',
             [token, expires, email]
         );
 
-        // Создание транспортера для отправки email
         const transporter = nodemailer.createTransport({
             host: 'smtp.mail.ru',
             port: 465,
@@ -42,10 +37,8 @@ export async function POST(req) {
             },
         });
 
-        // Генерация ссылки для сброса пароля
         const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
 
-        // Отправка email с ссылкой
         const mailOptions = {
             from: process.env.MAIL_USER,
             to: email,

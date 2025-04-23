@@ -39,7 +39,7 @@ function MobileMenu({
     const menuItemsData = [
         { title: 'Главная', url: '/' },
         { title: 'Аналитика', url: '/analytics' },
-        { title: 'Контакты', url: '/news' },
+        { title: 'Новости', url: '/news' },
     ];
 
     return (

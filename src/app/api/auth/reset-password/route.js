@@ -5,13 +5,11 @@ import bcrypt from 'bcrypt';
 export async function POST(req) {
     const { token, password } = await req.json();
 
-    // Проверка наличия данных
     if (!token || !password) {
         return NextResponse.json({ message: 'Токен и новый пароль обязательны' }, { status: 400 });
     }
 
     try {
-        // Проверка токена
         const userRes = await db.query(
             'SELECT * FROM users WHERE reset_token = $1 AND reset_token_expires > NOW()',
             [token]
@@ -23,10 +21,8 @@ export async function POST(req) {
 
         const user = userRes.rows[0];
 
-        // Хеширование нового пароля
         const hashed = await bcrypt.hash(password, 10);
 
-        // Обновление пароля и очистка токена
         await db.query(
             'UPDATE users SET password = $1, reset_token = NULL, reset_token_expires = NULL WHERE reset_token = $2',
             [hashed, token]
