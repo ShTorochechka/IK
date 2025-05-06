@@ -15,7 +15,7 @@ function Header() {
     const router = useRouter();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAuthOpen, setIsAuthOpen] = useState(false);
-    const { balance, isLoading } = useFinance();
+    const { balance, isLoading, fetchBalance } = useFinance();
 
     const isAccountPage = pathname === '/account';
 
@@ -49,6 +49,7 @@ function Header() {
     const handleAuthSuccess = () => {
         setIsLoggedIn(true);
         setIsAuthOpen(false);
+        fetchBalance();
     };
 
     const handleLogout = () => {
@@ -82,9 +83,8 @@ function Header() {
                             {isLoading ? (
                                 <Loader size={26} />
                             ) : (
-                                balance !== 0 && <Balance balance={balance} />
+                                <Balance balance={balance} />
                             )}
-
                             {isAccountPage ? (
                                 <button onClick={handleLogout}>Выйти</button>
                             ) : (
