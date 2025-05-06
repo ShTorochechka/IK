@@ -18,6 +18,7 @@ function MobileMenu({
     const [open, setOpen] = useState(false);
     const isAccountPage = pathname === '/account';
 
+
     useEffect(() => {
         if (open || isAuthOpen) {
             document.body.classList.add('hiddenScroll');
@@ -41,6 +42,10 @@ function MobileMenu({
         { title: 'Аналитика', url: '/analytics' },
         { title: 'Новости', url: '/news' },
     ];
+
+    useEffect(() => {
+        setOpen(false);
+    }, [pathname]);
 
     return (
         <>
