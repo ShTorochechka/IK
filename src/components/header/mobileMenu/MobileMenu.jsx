@@ -77,9 +77,9 @@ function MobileMenu({
                         {isLoggedIn ? (
                             <>
                                 {isLoading ? (
-                                    <Loader />
+                                    <Loader size={26} />
                                 ) : (
-                                    <Balance balance={balance} />
+                                    balance !== 0 && <Balance balance={balance} />
                                 )}
                                 {isAccountPage ? (
                                     <button onClick={handleLogout}>Выйти</button>

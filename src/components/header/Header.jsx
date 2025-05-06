@@ -82,7 +82,7 @@ function Header() {
                             {isLoading ? (
                                 <Loader size={26} />
                             ) : (
-                                <Balance balance={balance} />
+                                balance !== 0 && <Balance balance={balance} />
                             )}
 
                             {isAccountPage ? (
